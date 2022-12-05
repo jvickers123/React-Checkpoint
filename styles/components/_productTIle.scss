@@ -1,0 +1,13 @@
+.product-tile {
+  border: 1px solid red;
+  width: 27.5rem;
+  height: 47rem;
+  margin: 2rem;
+  @include flex-center(column);
+
+  &__image {
+    position: relative;
+    width: 25rem;
+    height: 40rem;
+  }
+}
