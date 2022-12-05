@@ -14,10 +14,6 @@ export type RootState = {
   };
 };
 
-// const store = configureStore({
-//   reducer: { wishlist: WishlistReducer, ui: UIReducer, cart: CartReducer },
-// });
-
 export const initStore = (preloadedState?: PreloadedState<RootState>) => {
   return configureStore({
     reducer: { wishlist: WishlistReducer, ui: UIReducer, cart: CartReducer },

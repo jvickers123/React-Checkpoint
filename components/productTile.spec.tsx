@@ -4,13 +4,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
 import * as UseInList from '../helpers/redux-helpers';
 
-const dispatchMock = jest.fn();
+jest.mock('next/image');
+jest.mock('../helpers/redux-helpers');
 
+const dispatchMock = jest.fn();
 jest.mock('react-redux', () => ({
   useDispatch: () => dispatchMock,
 }));
-
-jest.mock('../helpers/redux-helpers');
 
 jest.mock('next/image', () => ({
   __esModule: true,

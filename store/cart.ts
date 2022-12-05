@@ -1,11 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import type { Product } from '../helpers/types';
+import type { Product, CartItem } from '../helpers/types';
 
-export type CartItem = Product & { quantity: number; total: number };
-
-const initialState: { items: CartItem[]; changed: boolean } = {
+const initialState: { items: CartItem[] } = {
   items: [],
-  changed: false,
 };
 
 const cartSlice = createSlice({
@@ -17,7 +14,6 @@ const cartSlice = createSlice({
     },
 
     addItem(state, action) {
-      state.changed = true;
       const newItem = action.payload;
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
@@ -37,7 +33,6 @@ const cartSlice = createSlice({
       const item = state.items.find(
         ({ id }) => id === action.payload
       ) as CartItem;
-      state.changed = true;
       if (item.quantity > 1) {
         item.quantity--;
         item.total -= item.price;

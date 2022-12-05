@@ -10,3 +10,5 @@ export type Product = {
   };
   title: string;
 };
+
+export type CartItem = Product & { quantity: number; total: number };

@@ -3,7 +3,7 @@ import { renderWithProviders } from './test-utils';
 
 describe('useInWishlistOrCart', () => {
   it('happy path - WISHLIST returns true if in redux state', () => {
-    const response = renderWithProviders(() => useInWishlistOrCart(1, true));
+    const response = renderWithProviders(() => useInWishlistOrCart(1));
     expect(response.result.current).toEqual(true);
   });
 
