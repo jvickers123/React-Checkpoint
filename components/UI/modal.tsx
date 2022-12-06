@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 
 const Backdrop = ({ closeModal }: { closeModal: () => void }) => (
-  <div onClick={closeModal} className="backdrop"></div>
+  <div data-testid="backdrop" onClick={closeModal} className="backdrop"></div>
 );
 
 const ModalOverlay = ({ children }: { children: JSX.Element }) => (

@@ -1,4 +1,4 @@
-import { renderHook, RenderOptions } from '@testing-library/react';
+import { render, renderHook, RenderOptions } from '@testing-library/react';
 import { mockData } from '../mock/mockData';
 import { initStore } from '../store';
 import { AppStore, RootState } from '../store';
@@ -11,7 +11,7 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
 }
 
 export const renderWithProviders = (
-  hook: () => any | void,
+  hookOrElement: (() => any) | JSX.Element,
   {
     preloadedState = {
       wishlist: { items: mockData },
@@ -19,6 +19,7 @@ export const renderWithProviders = (
         items: [{ ...mockData[0], quantity: 1, total: 10 }],
         changed: false,
       },
+      ui: { showCart: false, showWishList: false },
     },
     store = initStore(preloadedState),
     ...renderOptions
@@ -27,8 +28,23 @@ export const renderWithProviders = (
   const Wrapper = ({ children }: { children: JSX.Element }) => (
     <Provider store={store}>{children}</Provider>
   );
-  return {
-    store,
-    ...renderHook(hook, { wrapper: Wrapper, ...renderOptions }),
-  };
+
+  // check if to renderhook or render()
+  if (typeof hookOrElement === 'function') {
+    return {
+      store,
+      ...renderHook(hookOrElement as () => any, {
+        wrapper: Wrapper,
+        ...renderOptions,
+      }),
+    };
+  } else {
+    return {
+      store,
+      ...render(hookOrElement as JSX.Element, {
+        wrapper: Wrapper,
+        ...renderOptions,
+      }),
+    };
+  }
 };

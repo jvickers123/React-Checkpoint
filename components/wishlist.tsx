@@ -7,9 +7,6 @@ import { uiActions } from '../store/ui-slice';
 
 const Wishlist = () => {
   const dispatch = useDispatch();
-  const { showWishList } = useSelector<RootState, { showWishList: boolean }>(
-    (state) => state.ui
-  );
 
   const { items } = useSelector<RootState, { items: Product[] }>(
     (state) => state.wishlist
@@ -18,16 +15,18 @@ const Wishlist = () => {
   const closeModal = () => {
     dispatch(uiActions.toggleWishList());
   };
+
   return (
     <>
-      {showWishList && (
-        <Modal closeModal={closeModal}>
-          <>
-            <h2>Wishlist</h2>
+      <Modal closeModal={closeModal}>
+        <>
+          <button onClick={closeModal}>X</button>
+          <h2>Wishlist</h2>
+          <div className="modal__content">
             <ProductsList products={items} />
-          </>
-        </Modal>
-      )}
+          </div>
+        </>
+      </Modal>
     </>
   );
 };

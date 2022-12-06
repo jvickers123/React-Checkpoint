@@ -6,15 +6,17 @@ import type { Product } from '../helpers/types';
 
 import { getAllItems } from '../helpers/api-utils';
 import Wishlist from '../components/wishlist';
-import { Provider, useSelector } from 'react-redux';
-import initStore, { RootState } from '../store';
+import { useSelector } from 'react-redux';
 import type { CartItem } from '../helpers/types';
+import Navbar from '../components/navbar';
+import { RootState } from '../store';
 
 const Home = (props: { products: Product[]; carts: CartItem[] }) => {
-  const store = initStore();
-
+  const { showWishList } = useSelector<RootState, { showWishList: boolean }>(
+    (state) => state.ui
+  );
   return (
-    <Provider store={store}>
+    <>
       <Head>
         <title>React Practice app</title>
         <meta
@@ -23,10 +25,13 @@ const Home = (props: { products: Product[]; carts: CartItem[] }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ProductsList products={props.products} />
+      <Navbar />
+      <main className={showWishList ? 'main__noScroll' : 'main'}>
+        <ProductsList products={props.products} />
+      </main>
       <Cart carts={props.carts} />
-      <Wishlist />
-    </Provider>
+      {showWishList && <Wishlist />}
+    </>
   );
 };
 
