@@ -1,71 +1,39 @@
-import axios from 'axios';
-
 import { getAllItems, getSingleItem } from './api-utils';
-import { mockData } from '../mock/mockData';
-
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+import { mockCartData, mockData } from '../mock/mockData';
 
 describe('api-utils', () => {
-  it('getAllItems calls to product end point', async () => {
-    await getAllItems('products');
-    expect(mockedAxios.get).toBeCalledWith('https://fakestoreapi.com/products');
+  it('happy path - GetAllItems returns correct data', async () => {
+    const data = await getAllItems('products');
+    expect(data).toEqual(mockData);
   });
 
-  it('getSingleItems calls to product and idend point', async () => {
-    await getSingleItem('products', 1);
-    expect(mockedAxios.get).toBeCalledWith(
-      'https://fakestoreapi.com/products/1'
-    );
+  it('happy path - GetSingleItem returns correct data', async () => {
+    const data = await getSingleItem('products', 1);
+    expect(data).toEqual(mockData[0]);
   });
 
-  it('happy path - returns the data', async () => {
-    mockedAxios.get.mockResolvedValueOnce({
-      data: mockData,
-      status: 200,
-      statusText: 'OK',
-      headers: {},
-      config: {},
-    });
-    const response = await getAllItems('products');
-    expect(response).toEqual(mockData);
+  it('happy path - GetAllItems returns correct data CART', async () => {
+    const data = await getAllItems('carts');
+    expect(data).toEqual(mockCartData);
+  });
+
+  it('happy path - GetSingleItem returns correct data CART', async () => {
+    const data = await getSingleItem('carts', 1);
+    expect(data).toEqual(mockCartData[0]);
   });
 
   it('unhappy path - console.logs error message', async () => {
-    mockedAxios.get.mockRejectedValueOnce({
-      message: 'error-message',
-      status: 401,
-      statusText: 'OK',
-      headers: {},
-      config: {},
-    });
     console.log = jest.fn();
-    await getAllItems('products');
-    expect(console.log).toHaveBeenCalledWith('error-message');
+    await getAllItems('wrongProductName');
+    expect(console.log).toHaveBeenCalledWith(
+      'Request failed with status code 404'
+    );
   });
-
-  it('happy path - Single Item - returns the data', async () => {
-    mockedAxios.get.mockResolvedValueOnce({
-      data: mockData[0],
-      status: 200,
-      statusText: 'OK',
-      headers: {},
-      config: {},
-    });
-    const response = await getSingleItem('products', 1);
-    expect(response).toEqual(mockData[0]);
-  });
-
-  it('unhappy path - Single Item - console.logs error message', async () => {
-    mockedAxios.get.mockRejectedValueOnce({
-      message: 'error-message',
-      status: 401,
-      statusText: 'OK',
-      headers: {},
-      config: {},
-    });
+  it('unhappy path - console.logs error message SINGLE ITEM', async () => {
     console.log = jest.fn();
-    await getSingleItem('products', 1);
-    expect(console.log).toHaveBeenCalledWith('error-message');
+    await getSingleItem('wrongProductName', 1);
+    expect(console.log).toHaveBeenCalledWith(
+      'Request failed with status code 404'
+    );
   });
 });
