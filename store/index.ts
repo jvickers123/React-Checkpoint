@@ -1,6 +1,6 @@
 import { configureStore, PreloadedState } from '@reduxjs/toolkit';
-import { Product } from '../helpers/types';
-import CartReducer, { CartItem } from './cart';
+import { Product, CartItem } from '../helpers/types';
+import CartReducer from './cart';
 import UIReducer from './ui-slice';
 import WishlistReducer from './wishlist';
 
@@ -11,6 +11,10 @@ export type RootState = {
   cart: {
     items: CartItem[];
     changed: boolean;
+  };
+  ui: {
+    showCart: boolean;
+    showWishList: boolean;
   };
 };
 

@@ -6,11 +6,13 @@ import type { Product } from '../helpers/types';
 
 import { getAllItems } from '../helpers/api-utils';
 import Wishlist from '../components/wishlist';
-import { Provider } from 'react-redux';
-import initStore from '../store';
+import { Provider, useSelector } from 'react-redux';
+import initStore, { RootState } from '../store';
+import type { CartItem } from '../helpers/types';
 
-const Home = (props: { products: Product[]; carts: any[]; users: any[] }) => {
+const Home = (props: { products: Product[]; carts: CartItem[] }) => {
   const store = initStore();
+
   return (
     <Provider store={store}>
       <Head>
@@ -31,12 +33,10 @@ const Home = (props: { products: Product[]; carts: any[]; users: any[] }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const products = await getAllItems('products');
   const carts = await getAllItems('carts');
-  const users = await getAllItems('users');
   return {
     props: {
       products,
       carts,
-      users,
     },
   };
 };

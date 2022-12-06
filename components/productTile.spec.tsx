@@ -103,12 +103,8 @@ describe('ProductTile', () => {
     render(<ProductTile product={mockData[0]} inView={false} />);
 
     const addToCartButton = screen.getByRole('button', { name: 'C' });
-    const removeFromCartButton = screen.queryByRole('button', {
-      name: 'RC',
-    });
 
     expect(addToCartButton).toBeInTheDocument();
-    expect(removeFromCartButton).not.toBeInTheDocument();
 
     UserEvent.click(addToCartButton);
 
@@ -120,25 +116,21 @@ describe('ProductTile', () => {
     });
   });
 
-  it('Removes item from cart if already on cart', async () => {
+  it('Add item to cart if already on cart', async () => {
     jest.spyOn(UseInList, 'useInWishlistOrCart').mockReturnValue(true);
 
     render(<ProductTile product={mockData[0]} inView={false} />);
 
-    const addToCartButton = screen.queryByRole('button', { name: 'C' });
-    const removeFromCartButton = screen.getByRole('button', {
-      name: 'RC',
-    });
+    const addToCartButton = screen.getByRole('button', { name: 'C' });
 
-    expect(addToCartButton).not.toBeInTheDocument();
-    expect(removeFromCartButton).toBeInTheDocument();
+    expect(addToCartButton).toBeInTheDocument();
 
-    UserEvent.click(removeFromCartButton);
+    UserEvent.click(addToCartButton);
 
     await waitFor(() => {
       expect(dispatchMock).toHaveBeenCalledWith({
-        payload: 1,
-        type: 'cart/removeItem',
+        payload: mockData[0],
+        type: 'cart/addItem',
       });
     });
   });

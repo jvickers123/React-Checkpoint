@@ -17,16 +17,15 @@ export const ProductTile = (props: { product: Product; inView: boolean }) => {
     if (inWishlist) dispatch(wishlistActions.removeItem(id));
     else dispatch(wishlistActions.addItem(props.product));
   };
-  const toggleCart = () => {
-    if (inCart) dispatch(cartActions.removeItem(id));
-    else dispatch(cartActions.addItem(props.product));
+  const addToCart = () => {
+    dispatch(cartActions.addItem(props.product));
   };
 
   return (
     <div className="product-tile">
       <div className="product-tile__button-container">
         <button onClick={toggleWishlist}>{inWishlist ? 'RW' : 'W'}</button>
-        <button onClick={toggleCart}>{inCart ? 'RC' : 'C'}</button>
+        <button onClick={addToCart}>{'C'}</button>
       </div>
       <div className="product-tile__image">
         <Image src={image} alt={title} fill sizes="25rem" priority={inView} />
