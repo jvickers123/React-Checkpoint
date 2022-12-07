@@ -4,9 +4,19 @@ describe('DocumentPage', () => {
   it('should render successfully', () => {
     // @ts-ignore
     const doc = new DocumentPage();
-    const renderedDoc = doc.render();
-
-    const body = renderedDoc.props.children[1];
-    console.log(body.props.children);
+    expect(doc.render()).toMatchInlineSnapshot(`
+    <Html
+      lang="en"
+    >
+      <Head />
+      <body>
+        <div
+          id="overlays"
+        />
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  `);
   });
 });
