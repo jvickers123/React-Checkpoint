@@ -1,15 +1,14 @@
 import Image from 'next/image';
-import type { Product } from '../helpers/types';
-import { wishlistActions } from '../store/wishlist';
+import type { Product } from '../../helpers/types';
+import { wishlistActions } from '../../store/wishlist';
 import { useDispatch } from 'react-redux';
-import { cartActions } from '../store/cart';
-import { useInWishlistOrCart } from '../helpers/redux-helpers';
+import { cartActions } from '../../store/cart';
+import { useInWishlistOrCart } from '../../helpers/redux-helpers';
 
 export const ProductTile = (props: { product: Product; inView: boolean }) => {
   const { description, image, price, title, id } = props.product;
   const { inView } = props;
   const inWishlist = useInWishlistOrCart(id);
-  const inCart = useInWishlistOrCart(id, false);
 
   const dispatch = useDispatch();
 

@@ -1,5 +1,5 @@
 import ProductsList from './productsList';
-import { mockData } from '../mock/mockData';
+import { mockData } from '../../mock/mockData';
 import { render, screen } from '@testing-library/react';
 
 jest.mock('./productTile', () =>

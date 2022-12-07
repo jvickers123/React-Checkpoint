@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Wishlist from './wishlist';
-import { renderWithProviders } from '../helpers/test-utils';
+import { renderWithProviders } from '../../helpers/test-utils';
 import { ReactPortal } from 'react';
 import ReactDOM from 'react-dom';
 

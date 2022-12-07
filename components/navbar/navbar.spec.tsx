@@ -1,6 +1,6 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders } from '../helpers/test-utils';
+import { renderWithProviders } from '../../helpers/test-utils';
 import Navbar from './navbar';
 
 const dispatchMock = jest.fn();

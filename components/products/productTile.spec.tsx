@@ -1,8 +1,8 @@
 import ProductTile from './productTile';
-import { mockData } from '../mock/mockData';
+import { mockData } from '../../mock/mockData';
 import { render, screen, waitFor } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
-import * as UseInList from '../helpers/redux-helpers';
+import * as UseInList from '../../helpers/redux-helpers';
 
 jest.mock('next/image');
 jest.mock('../helpers/redux-helpers');

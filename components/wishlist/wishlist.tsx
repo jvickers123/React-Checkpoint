@@ -1,9 +1,9 @@
-import ProductsList from './productsList';
+import ProductsList from '../products/productsList';
 import { useSelector, useDispatch } from 'react-redux';
-import { Product } from '../helpers/types';
-import { RootState } from '../store';
-import Modal from './UI/modal';
-import { uiActions } from '../store/ui-slice';
+import { Product } from '../../helpers/types';
+import { RootState } from '../../store';
+import Modal from '../UI/modal';
+import { uiActions } from '../../store/ui-slice';
 
 const Wishlist = () => {
   const dispatch = useDispatch();

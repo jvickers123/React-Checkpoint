@@ -1,20 +1,21 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import ProductsList from '../components/productsList';
-import Cart from '../components/cart';
+import ProductsList from '../components/products/productsList';
+import Cart from '../components/cart/cart';
 import type { Product } from '../helpers/types';
 
 import { getAllItems } from '../helpers/api-utils';
-import Wishlist from '../components/wishlist';
+import Wishlist from '../components/wishlist/wishlist';
 import { useSelector } from 'react-redux';
 import type { CartItem } from '../helpers/types';
-import Navbar from '../components/navbar';
+import Navbar from '../components/navbar/navbar';
 import { RootState } from '../store';
 
 const Home = (props: { products: Product[]; carts: CartItem[] }) => {
-  const { showWishList } = useSelector<RootState, { showWishList: boolean }>(
-    (state) => state.ui
-  );
+  const { showWishList, showCart } = useSelector<
+    RootState,
+    { showWishList: boolean; showCart: boolean }
+  >((state) => state.ui);
   return (
     <>
       <Head>
@@ -29,7 +30,7 @@ const Home = (props: { products: Product[]; carts: CartItem[] }) => {
       <main className={showWishList ? 'main__noScroll' : 'main'}>
         <ProductsList products={props.products} />
       </main>
-      <Cart carts={props.carts} />
+      {showCart && <Cart />}
       {showWishList && <Wishlist />}
     </>
   );
