@@ -5,19 +5,24 @@ import { renderWithProviders } from '../helpers/test-utils';
 import ReactDOM from 'react-dom';
 import { ReactPortal } from 'react';
 
+const mockGetApi = jest.fn();
+
+jest.mock('../helpers/api-utils', () => ({
+  getAllItems: () => mockGetApi(),
+}));
 ReactDOM.createPortal = jest.fn((element, node) => {
   return element as ReactPortal;
 });
 
 const initialState = {
   wishlist: { items: mockData },
-  cart: { items: mockCartData, changed: false },
+  cart: { items: mockCartData },
   ui: { showCart: false, showWishList: false, placeOrder: false },
 };
 
 describe('pages/index', () => {
   it('happy path - render products on page', () => {
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />);
+    renderWithProviders(<Home products={mockData} />);
     const item1 = screen.getByRole('heading', { name: 'item1' });
     const item2 = screen.getByRole('heading', { name: 'item2' });
 
@@ -26,14 +31,14 @@ describe('pages/index', () => {
   });
 
   it('default allows scroll', () => {
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />);
+    renderWithProviders(<Home products={mockData} />);
     const main = screen.getByRole('main');
 
     expect(main.className).toEqual('main');
   });
 
   it('default hides wishlist', () => {
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />);
+    renderWithProviders(<Home products={mockData} />);
     const wishlistHeading = screen.queryByRole('heading', { name: 'Wishlist' });
     expect(wishlistHeading).not.toBeInTheDocument();
   });
@@ -41,7 +46,7 @@ describe('pages/index', () => {
   it('Shows Wishlist when showWishlist is true', () => {
     const uiState = { showCart: false, showWishList: true, placeOrder: false };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const wishlistHeading = screen.getByRole('heading', { name: 'Wishlist' });
@@ -51,7 +56,7 @@ describe('pages/index', () => {
   it('Disables scroll when showWishlist is true', () => {
     const uiState = { showCart: false, showWishList: true, placeOrder: false };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const main = screen.getByRole('main');
@@ -59,7 +64,7 @@ describe('pages/index', () => {
   });
 
   it('default hides cart', () => {
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />);
+    renderWithProviders(<Home products={mockData} />);
     const cartHeading = screen.queryByRole('heading', { name: 'Cart' });
     expect(cartHeading).not.toBeInTheDocument();
   });
@@ -67,7 +72,7 @@ describe('pages/index', () => {
   it('Shows cart when showCart is true', () => {
     const uiState = { showCart: true, showWishList: false, placeOrder: false };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const cartHeading = screen.getByRole('heading', { name: 'Cart' });
@@ -77,7 +82,7 @@ describe('pages/index', () => {
   it('Disables scroll when showCart is true', () => {
     const uiState = { showCart: true, showWishList: false, placeOrder: false };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const main = screen.getByRole('main');
@@ -87,7 +92,7 @@ describe('pages/index', () => {
   it('Disables scroll when placeOrder is true', () => {
     const uiState = { showCart: false, showWishList: false, placeOrder: true };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const main = screen.getByRole('main');
@@ -95,7 +100,7 @@ describe('pages/index', () => {
   });
 
   it('default hides placeOrder', () => {
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />);
+    renderWithProviders(<Home products={mockData} />);
     const placeOrderHeading = screen.queryByRole('heading', {
       name: 'Thank you for your purchase!',
     });
@@ -105,7 +110,7 @@ describe('pages/index', () => {
   it('Shows placeOrder when placeOrder is true', () => {
     const uiState = { showCart: false, showWishList: false, placeOrder: true };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const placeOrderHeading = screen.getByRole('heading', {
@@ -117,19 +122,44 @@ describe('pages/index', () => {
   it('Disables scroll when placeOrder is true', () => {
     const uiState = { showCart: false, showWishList: false, placeOrder: true };
 
-    renderWithProviders(<Home products={mockData} carts={mockCartData} />, {
+    renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
     });
     const main = screen.getByRole('main');
     expect(main.className).toEqual('main__noScroll');
   });
+
+  it('hides error message when products list is showing', () => {
+    renderWithProviders(<Home products={mockData} />);
+    const errorMessage = screen.queryByText(
+      'Something went wrong. Please try again later'
+    );
+    expect(errorMessage).not.toBeInTheDocument();
+  });
+
+  it('show error message when products list is empty', () => {
+    renderWithProviders(<Home products={[]} />);
+    const errorMessage = screen.getByText(
+      'Something went wrong. Please try again later'
+    );
+    expect(errorMessage).toBeInTheDocument();
+  });
 });
 
 describe('getStaticProps', () => {
   it('returns mock server data', async () => {
+    mockGetApi.mockResolvedValueOnce(mockData);
     const staticProps = await getStaticProps({ locale: 'en' });
     expect(staticProps).toEqual({
-      props: { products: mockData, carts: mockCartData },
+      props: { products: mockData },
+    });
+  });
+
+  it('returns empty array when getAllItems fails server data', async () => {
+    mockGetApi.mockImplementationOnce(() => {});
+    const staticProps = await getStaticProps({ locale: 'en' });
+    expect(staticProps).toEqual({
+      props: { products: [] },
     });
   });
 });

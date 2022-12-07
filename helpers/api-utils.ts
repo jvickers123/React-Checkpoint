@@ -1,18 +1,8 @@
 import axios, { AxiosError } from 'axios';
 
-export const getAllItems = async (item: string) => {
+export const getAllItems = async (path: string = 'products') => {
   try {
-    const { data } = await axios.get(`https://fakestoreapi.com/${item}`);
-    return data;
-  } catch (error) {
-    const err = error as AxiosError;
-    console.log(err.message);
-  }
-};
-
-export const getSingleItem = async (item: string, id: number) => {
-  try {
-    const { data } = await axios.get(`https://fakestoreapi.com/${item}/${id}`);
+    const { data } = await axios.get(`https://fakestoreapi.com/${path}`);
     return data;
   } catch (error) {
     const err = error as AxiosError;

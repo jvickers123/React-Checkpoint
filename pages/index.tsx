@@ -7,15 +7,19 @@ import type { Product } from '../helpers/types';
 import { getAllItems } from '../helpers/api-utils';
 import Wishlist from '../components/wishlist/wishlist';
 import { useSelector } from 'react-redux';
-import type { CartItem } from '../helpers/types';
 import { RootState } from '../store';
 import PlaceOrder from '../components/UI/placeOrderScreen';
 import Header from '../components/layout/Header';
+import ErrorMessage from '../components/UI/errorMessage';
 
-const Home = (props: { products: Product[]; carts: CartItem[] }) => {
+const Home = (props: { products: Product[] }) => {
   const { showWishList, showCart, placeOrder } = useSelector<
     RootState,
-    { showWishList: boolean; showCart: boolean; placeOrder: boolean }
+    {
+      showWishList: boolean;
+      showCart: boolean;
+      placeOrder: boolean;
+    }
   >((state) => state.ui);
 
   const disableScroll = showCart || showWishList || placeOrder;
@@ -31,7 +35,11 @@ const Home = (props: { products: Product[]; carts: CartItem[] }) => {
       </Head>
       <Header />
       <main className={disableScroll ? 'main__noScroll' : 'main'}>
-        <ProductsList products={props.products} />
+        {props.products.length ? (
+          <ProductsList products={props.products} />
+        ) : (
+          <ErrorMessage />
+        )}
       </main>
       {showCart && <Cart />}
       {showWishList && <Wishlist />}
@@ -41,12 +49,10 @@ const Home = (props: { products: Product[]; carts: CartItem[] }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const products = await getAllItems('products');
-  const carts = await getAllItems('carts');
+  const products = (await getAllItems()) || [];
   return {
     props: {
       products,
-      carts,
     },
   };
 };
