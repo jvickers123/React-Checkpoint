@@ -1,5 +1,5 @@
 import { render, renderHook, RenderOptions } from '@testing-library/react';
-import { mockData } from '../mock/mockData';
+import { mockCartData, mockData } from '../mock/mockData';
 import { initStore } from '../store';
 import { AppStore, RootState } from '../store';
 import { PreloadedState } from '@reduxjs/toolkit';
@@ -16,10 +16,9 @@ export const renderWithProviders = (
     preloadedState = {
       wishlist: { items: mockData },
       cart: {
-        items: [{ ...mockData[0], quantity: 1, total: 10 }],
-        changed: false,
+        items: mockCartData,
       },
-      ui: { showCart: false, showWishList: false },
+      ui: { showCart: false, showWishList: false, placeOrder: false },
     },
     store = initStore(preloadedState),
     ...renderOptions

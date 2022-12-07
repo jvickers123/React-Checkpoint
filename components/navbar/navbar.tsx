@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { uiActions } from '../../store/ui-slice';
+import { renderIcon } from '../UI/renderIcon';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -10,10 +12,14 @@ const Navbar = () => {
     <nav className="navbar">
       <ul>
         <li>
-          <button onClick={toggleWishList}>wishlist</button>
+          <button onClick={toggleWishList}>
+            {renderIcon({ iconName: 'heart-filled', alt: 'Wishlist' })}
+          </button>
         </li>
         <li>
-          <button onClick={toggleCart}>cart</button>
+          <button onClick={toggleCart}>
+            {renderIcon({ iconName: 'shoppingCart', alt: 'Shopping Cart' })}
+          </button>
         </li>
       </ul>
     </nav>

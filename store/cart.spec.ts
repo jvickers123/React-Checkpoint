@@ -51,4 +51,11 @@ describe('CartReducer', () => {
       items: [mockCartData[1]],
     });
   });
+
+  it('should clear cart if replaceCart called with non items', () => {
+    const previousState = { items: mockCartData };
+    expect(CartReducer(previousState, cartActions.replaceCart({}))).toEqual({
+      items: [],
+    });
+  });
 });

@@ -4,8 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
 import * as UseInList from '../../helpers/redux-helpers';
 
-jest.mock('next/image');
-jest.mock('../helpers/redux-helpers');
+jest.mock('../../helpers/redux-helpers');
 
 const dispatchMock = jest.fn();
 jest.mock('react-redux', () => ({
@@ -26,7 +25,7 @@ jest.mock('next/image', () => ({
       <img
         alt={props.alt}
         src={props.src}
-        data-priority={props.priority.toString()}
+        data-priority={props.priority?.toString()}
       />
     );
   },
@@ -56,9 +55,11 @@ describe('ProductTile', () => {
 
     render(<ProductTile product={mockData[0]} inView={false} />);
 
-    const addToWishListButton = screen.getByRole('button', { name: 'W' });
+    const addToWishListButton = screen.getByRole('button', {
+      name: 'add to wishlist',
+    });
     const removeFromWishListButton = screen.queryByRole('button', {
-      name: 'RW',
+      name: 'remove from wishlist',
     });
 
     expect(addToWishListButton).toBeInTheDocument();
@@ -79,9 +80,11 @@ describe('ProductTile', () => {
 
     render(<ProductTile product={mockData[0]} inView={false} />);
 
-    const addToWishListButton = screen.queryByRole('button', { name: 'W' });
+    const addToWishListButton = screen.queryByRole('button', {
+      name: 'add to wishlist',
+    });
     const removeFromWishListButton = screen.getByRole('button', {
-      name: 'RW',
+      name: 'remove from wishlist',
     });
 
     expect(addToWishListButton).not.toBeInTheDocument();
@@ -102,7 +105,7 @@ describe('ProductTile', () => {
 
     render(<ProductTile product={mockData[0]} inView={false} />);
 
-    const addToCartButton = screen.getByRole('button', { name: 'C' });
+    const addToCartButton = screen.getByRole('button', { name: 'add to cart' });
 
     expect(addToCartButton).toBeInTheDocument();
 
@@ -121,7 +124,7 @@ describe('ProductTile', () => {
 
     render(<ProductTile product={mockData[0]} inView={false} />);
 
-    const addToCartButton = screen.getByRole('button', { name: 'C' });
+    const addToCartButton = screen.getByRole('button', { name: 'add to cart' });
 
     expect(addToCartButton).toBeInTheDocument();
 

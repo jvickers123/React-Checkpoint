@@ -10,7 +10,6 @@ export type RootState = {
   };
   cart: {
     items: CartItem[];
-    changed: boolean;
   };
   ui: {
     showCart: boolean;

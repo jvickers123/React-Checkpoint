@@ -8,15 +8,17 @@ import { getAllItems } from '../helpers/api-utils';
 import Wishlist from '../components/wishlist/wishlist';
 import { useSelector } from 'react-redux';
 import type { CartItem } from '../helpers/types';
-import Navbar from '../components/navbar/navbar';
 import { RootState } from '../store';
-import PlaceOrderScreen from '../components/UI/placeOrderScreen';
+import PlaceOrder from '../components/UI/placeOrderScreen';
+import Header from '../components/layout/Header';
 
 const Home = (props: { products: Product[]; carts: CartItem[] }) => {
   const { showWishList, showCart, placeOrder } = useSelector<
     RootState,
     { showWishList: boolean; showCart: boolean; placeOrder: boolean }
   >((state) => state.ui);
+
+  const disableScroll = showCart || showWishList || placeOrder;
   return (
     <>
       <Head>
@@ -27,13 +29,13 @@ const Home = (props: { products: Product[]; carts: CartItem[] }) => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
-      <main className={showWishList ? 'main__noScroll' : 'main'}>
+      <Header />
+      <main className={disableScroll ? 'main__noScroll' : 'main'}>
         <ProductsList products={props.products} />
       </main>
       {showCart && <Cart />}
       {showWishList && <Wishlist />}
-      {placeOrder && <PlaceOrderScreen />}
+      {placeOrder && <PlaceOrder />}
     </>
   );
 };

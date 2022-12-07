@@ -18,18 +18,31 @@ describe('Navbar', () => {
     const listItems = screen.getAllByRole('listitem');
 
     expect(nav).toBeInTheDocument();
-    expect(listItems.length).toEqual(1);
+    expect(listItems.length).toEqual(2);
   });
 
   it('opens wishlist on button click', async () => {
     renderWithProviders(<Navbar />);
-    const wishlistBtn = screen.getByRole('button', { name: 'wishlist' });
+    const wishlistBtn = screen.getByRole('button', { name: 'Wishlist' });
     userEvent.click(wishlistBtn);
 
     await waitFor(() =>
       expect(dispatchMock).toHaveBeenCalledWith({
         payload: undefined,
         type: 'ui/toggleWishList',
+      })
+    );
+  });
+
+  it('opens cart on cart button click', async () => {
+    renderWithProviders(<Navbar />);
+    const wishlistBtn = screen.getByRole('button', { name: 'Shopping Cart' });
+    userEvent.click(wishlistBtn);
+
+    await waitFor(() =>
+      expect(dispatchMock).toHaveBeenCalledWith({
+        payload: undefined,
+        type: 'ui/toggleCart',
       })
     );
   });
