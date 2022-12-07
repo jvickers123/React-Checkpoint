@@ -10,11 +10,12 @@ import { useSelector } from 'react-redux';
 import type { CartItem } from '../helpers/types';
 import Navbar from '../components/navbar/navbar';
 import { RootState } from '../store';
+import PlaceOrderScreen from '../components/UI/placeOrderScreen';
 
 const Home = (props: { products: Product[]; carts: CartItem[] }) => {
-  const { showWishList, showCart } = useSelector<
+  const { showWishList, showCart, placeOrder } = useSelector<
     RootState,
-    { showWishList: boolean; showCart: boolean }
+    { showWishList: boolean; showCart: boolean; placeOrder: boolean }
   >((state) => state.ui);
   return (
     <>
@@ -32,6 +33,7 @@ const Home = (props: { products: Product[]; carts: CartItem[] }) => {
       </main>
       {showCart && <Cart />}
       {showWishList && <Wishlist />}
+      {placeOrder && <PlaceOrderScreen />}
     </>
   );
 };

@@ -12,10 +12,14 @@ const Cart = () => {
   const { items } = useSelector<RootState, { items: CartItem[] }>(
     (state) => state.cart
   );
+  const total = items.reduce((acc, item) => acc + item.total, 0).toFixed(2);
 
   const closeModal = () => dispatch(uiActions.toggleCart());
   const clearCart = () => dispatch(cartActions.replaceCart({}));
-  const total = items.reduce((acc, item) => acc + item.total, 0).toFixed(2);
+  const placeOrder = () => {
+    dispatch(uiActions.toggleCart());
+    dispatch(uiActions.placeOrder());
+  };
 
   return (
     <>
@@ -28,6 +32,7 @@ const Cart = () => {
             <ProductsList cart={items} />
           </div>
           <p>Total: £{total}</p>
+          <button onClick={placeOrder}>Place Order</button>
         </>
       </Modal>
     </>

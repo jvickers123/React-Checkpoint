@@ -15,6 +15,7 @@ export type RootState = {
   ui: {
     showCart: boolean;
     showWishList: boolean;
+    placeOrder: boolean;
   };
 };
 
