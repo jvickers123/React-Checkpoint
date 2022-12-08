@@ -1,13 +1,29 @@
 .product-tile {
-  border: 1px solid red;
+  border: 1px solid $grey;
   width: 27.5rem;
   height: 47rem;
   margin: 2rem;
-  @include flex-center(column);
+  display: flex;
+  flex-direction: column;
+  color: $black;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  @extend %box-shadow;
 
   &__image {
     position: relative;
     width: 25rem;
     height: 40rem;
+  }
+
+  &__price {
+    font-weight: 500;
+  }
+
+  &__button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 }

@@ -1,4 +1,17 @@
+.main {
+  background-color: $grey;
+}
+
 .main__noScroll {
-  height: 90vh;
+  height: calc(100vh - 20rem);
   overflow: hidden;
+}
+
+@include respond(tablet) {
+  .main__noScroll {
+    height: calc(100vh - 10rem);
+  }
+  .main {
+    padding-top: 15rem;
+  }
 }

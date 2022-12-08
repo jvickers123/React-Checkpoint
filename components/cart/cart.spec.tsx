@@ -41,7 +41,7 @@ describe('Cart', () => {
 
   it('clear Cart button clears the cart', async () => {
     renderWithProviders(<Cart />);
-    const clearBtn = screen.getByRole('button', { name: 'clear' });
+    const clearBtn = screen.getByRole('button', { name: 'Clear Cart' });
 
     userEvent.click(clearBtn);
 
@@ -55,7 +55,7 @@ describe('Cart', () => {
 
   it('closes cart on close cart button', async () => {
     renderWithProviders(<Cart />);
-    const closeButton = screen.getByRole('button', { name: 'X' });
+    const closeButton = screen.getByRole('button', { name: 'Close' });
     userEvent.click(closeButton);
 
     await waitFor(() => {

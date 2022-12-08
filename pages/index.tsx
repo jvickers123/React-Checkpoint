@@ -11,6 +11,7 @@ import { RootState } from '../store';
 import PlaceOrder from '../components/UI/placeOrderScreen';
 import Header from '../components/layout/Header';
 import ErrorMessage from '../components/UI/errorMessage';
+import Toast from '../components/UI/toast';
 
 const Home = (props: { products: Product[] }) => {
   const { showWishList, showCart, placeOrder } = useSelector<
@@ -34,6 +35,7 @@ const Home = (props: { products: Product[] }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+      <Toast />
       <main className={disableScroll ? 'main__noScroll' : 'main'}>
         {props.products.length ? (
           <ProductsList products={props.products} />

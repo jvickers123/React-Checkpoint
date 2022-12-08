@@ -1,0 +1,27 @@
+.toast {
+  height: 4rem;
+  @include flex-center(row);
+  background-color: $grey;
+  color: $white;
+  position: sticky;
+  top: 5rem;
+  z-index: -1;
+
+  &--success {
+    background-color: $success;
+    z-index: 2;
+  }
+
+  &--failure {
+    z-index: 2;
+    background-color: $failure;
+  }
+}
+
+@include respond(tablet) {
+  .toast {
+    position: fixed;
+    width: 100%;
+    top: 10rem;
+  }
+}

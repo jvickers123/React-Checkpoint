@@ -25,14 +25,16 @@ const PlaceOrder = () => {
   return (
     <Modal closeModal={closeModal}>
       <>
-        <h2>Thank you for your purchase!</h2>
+        <h2 className="heading2">Thank you for your purchase!</h2>
         {items.map((item) => (
-          <p key={item.id}>
+          <p key={item.id} className="paragraph">
             {item.title} - {item.price.toFixed(2)} x {item.quantity}
           </p>
         ))}
-        <p>Total: £{total}</p>
-        <button onClick={closeModal}>X</button>
+        <p className="paragraph">Total: £{total}</p>
+        <button className="button" onClick={closeModal}>
+          Close
+        </button>
       </>
     </Modal>
   );

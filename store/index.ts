@@ -3,6 +3,8 @@ import { Product, CartItem } from '../helpers/types';
 import CartReducer from './cart';
 import UIReducer from './ui-slice';
 import WishlistReducer from './wishlist';
+import { ToastType } from './ui-slice';
+import { mockData, mockCartData } from '../mock/mockData';
 
 export type RootState = {
   wishlist: {
@@ -15,7 +17,19 @@ export type RootState = {
     showCart: boolean;
     showWishList: boolean;
     placeOrder: boolean;
+    toast: ToastType;
   };
+};
+
+export const initialState = {
+  wishlist: { items: mockData },
+  cart: { items: mockCartData },
+  ui: {
+    showCart: false,
+    showWishList: false,
+    placeOrder: false,
+    toast: ToastType.empty,
+  },
 };
 
 export const initStore = (preloadedState?: PreloadedState<RootState>) => {

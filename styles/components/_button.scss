@@ -1,0 +1,16 @@
+.button {
+  background-color: transparent;
+  border-radius: 0.5rem;
+  color: $accent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+  &:hover {
+    background-color: $white;
+  }
+
+  &:active {
+    transform: translatey(0.5px);
+  }
+}

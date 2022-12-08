@@ -1,0 +1,24 @@
+.cart {
+  &__button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__button {
+    background-color: $accent;
+    color: $white;
+    padding: 1rem 2rem;
+    &:hover {
+      background-color: darken($accent, 10%);
+    }
+
+    &--red {
+      background-color: $failure;
+
+      &:hover {
+        background-color: darken($failure, 10%);
+      }
+    }
+  }
+}

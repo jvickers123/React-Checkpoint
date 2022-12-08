@@ -16,6 +16,7 @@ const Cart = () => {
 
   const closeModal = () => dispatch(uiActions.toggleCart());
   const clearCart = () => dispatch(cartActions.replaceCart({}));
+
   const placeOrder = () => {
     dispatch(uiActions.toggleCart());
     dispatch(uiActions.placeOrder());
@@ -25,14 +26,25 @@ const Cart = () => {
     <>
       <Modal closeModal={closeModal}>
         <>
-          <button onClick={closeModal}>X</button>
-          <button onClick={clearCart}>clear</button>
-          <h2>Cart</h2>
+          <div className="cart__button-container">
+            <button className="button cart__button" onClick={closeModal}>
+              Close
+            </button>
+            <button
+              className="button cart__button cart__button--red"
+              onClick={clearCart}
+            >
+              Clear Cart
+            </button>
+          </div>
+          <h2 className="heading2">Cart</h2>
           <div className="modal__content">
             <ProductsList cart={items} />
           </div>
-          <p>Total: £{total}</p>
-          <button onClick={placeOrder}>Place Order</button>
+          <p className="paragraph">Total: £{total}</p>
+          <button className="button cart__button" onClick={placeOrder}>
+            Place Order
+          </button>
         </>
       </Modal>
     </>

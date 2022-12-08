@@ -1,11 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export enum ToastType {
+  addCart = 'Added to cart!',
+  removeCart = 'Removed from cart!',
+  addWishlist = 'Added to wishlist!',
+  removeWishlist = 'Removed from wishlist!',
+  empty = '',
+}
+
 const uISlice = createSlice({
   name: 'ui',
   initialState: {
     showCart: false,
     showWishList: false,
     placeOrder: false,
+    toast: ToastType.empty,
   },
   reducers: {
     toggleCart(state) {
@@ -19,6 +28,9 @@ const uISlice = createSlice({
     },
     removePlaceOrder(state) {
       state.placeOrder = false;
+    },
+    changeToast(state, action) {
+      state.toast = action.payload;
     },
   },
 });

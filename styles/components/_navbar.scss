@@ -1,0 +1,16 @@
+.nav {
+  &__container {
+    display: flex;
+  }
+
+  &__item {
+    list-style: none;
+    margin: 0 2rem;
+  }
+
+  &__button {
+    &:hover {
+      background-color: darken($accent, 10%);
+    }
+  }
+}

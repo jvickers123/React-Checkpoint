@@ -42,10 +42,24 @@ describe('placeOrder', () => {
     expect(setTimeout).toHaveBeenCalledWith(expect.any(Function), 3000);
   });
 
+  it('setTimeout clears cart and removes modal', () => {
+    renderWithProviders(<PlaceOrder />);
+
+    jest.runAllTimers();
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, {
+      payload: undefined,
+      type: 'ui/removePlaceOrder',
+    });
+    expect(mockDispatch).toHaveBeenNthCalledWith(2, {
+      payload: {},
+      type: 'cart/replaceCart',
+    });
+  });
+
   it('clears cart and removes modal on closeModal', async () => {
     renderWithProviders(<PlaceOrder />);
 
-    const closeBtn = screen.getByRole('button', { name: 'X' });
+    const closeBtn = screen.getByRole('button', { name: 'Close' });
 
     userEvent.click(closeBtn);
 

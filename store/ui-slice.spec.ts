@@ -1,88 +1,102 @@
-import UIReducer, { uiActions } from './ui-slice';
+import UIReducer, { ToastType, uiActions } from './ui-slice';
 
-const initialState = {
+const initialUIState = {
   showCart: false,
   showWishList: false,
   placeOrder: false,
+  toast: ToastType.empty,
 };
 describe('UIReducer', () => {
   it('toggleCart to show cart if no original state', () => {
     expect(UIReducer(undefined, uiActions.toggleCart())).toEqual({
-      ...initialState,
+      ...initialUIState,
       showCart: true,
     });
   });
   it('toggleCart to show cart if false', () => {
-    const previousState = { ...initialState };
+    const previousState = { ...initialUIState };
     expect(UIReducer(previousState, uiActions.toggleCart())).toEqual({
-      ...initialState,
+      ...initialUIState,
       showCart: true,
     });
   });
 
   it('toggleCart to hide cart if originally true', () => {
     const previousState = {
-      ...initialState,
+      ...initialUIState,
       showCart: true,
     };
 
     expect(UIReducer(previousState, uiActions.toggleCart())).toEqual(
-      initialState
+      initialUIState
     );
   });
 
   it('toggleWishList to show wishlist if false', () => {
-    expect(UIReducer(initialState, uiActions.toggleWishList())).toEqual({
-      ...initialState,
+    expect(UIReducer(initialUIState, uiActions.toggleWishList())).toEqual({
+      ...initialUIState,
       showWishList: true,
     });
   });
 
   it('toggleWishList to hide wishlist if true', () => {
     const previousState = {
-      ...initialState,
+      ...initialUIState,
       showWishList: true,
     };
 
     expect(UIReducer(previousState, uiActions.toggleWishList())).toEqual(
-      initialState
+      initialUIState
     );
   });
 
   it('toggleWishList to show wishlist if no original state', () => {
     expect(UIReducer(undefined, uiActions.toggleWishList())).toEqual({
-      ...initialState,
+      ...initialUIState,
       showWishList: true,
     });
   });
 
   it('placeOrder to turn true if no original state', () => {
     expect(UIReducer(undefined, uiActions.placeOrder())).toEqual({
-      ...initialState,
+      ...initialUIState,
       placeOrder: true,
     });
   });
 
   it('placeOrder to turn true with given state', () => {
-    expect(UIReducer(initialState, uiActions.placeOrder())).toEqual({
-      ...initialState,
+    expect(UIReducer(initialUIState, uiActions.placeOrder())).toEqual({
+      ...initialUIState,
       placeOrder: true,
     });
   });
 
   it('removePlaceOrder to turn placeOrder false with given state', () => {
     const previousState = {
-      ...initialState,
+      ...initialUIState,
       placeOrder: true,
     };
 
     expect(UIReducer(previousState, uiActions.removePlaceOrder())).toEqual(
-      initialState
+      initialUIState
     );
   });
   it('removePlaceOrder to turn placeOrder false with no  given state', () => {
     expect(UIReducer(undefined, uiActions.removePlaceOrder())).toEqual(
-      initialState
+      initialUIState
     );
+  });
+
+  it.each([
+    ToastType.empty,
+    ToastType.addCart,
+    ToastType.addWishlist,
+    ToastType.removeCart,
+    ToastType.removeWishlist,
+  ])('change toast %s changes to correct toast message', (toastMessage) => {
+    expect(UIReducer(undefined, uiActions.changeToast(toastMessage))).toEqual({
+      ...initialUIState,
+      toast: toastMessage,
+    });
   });
 });

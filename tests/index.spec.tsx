@@ -1,9 +1,11 @@
 import { screen } from '@testing-library/react';
 import Home, { getStaticProps } from '../pages/index';
-import { mockData, mockCartData } from '../mock/mockData';
+import { mockData } from '../mock/mockData';
 import { renderWithProviders } from '../helpers/test-utils';
 import ReactDOM from 'react-dom';
 import { ReactPortal } from 'react';
+import { ToastType } from '../store/ui-slice';
+import { initialState } from '../store';
 
 const mockGetApi = jest.fn();
 
@@ -13,12 +15,6 @@ jest.mock('../helpers/api-utils', () => ({
 ReactDOM.createPortal = jest.fn((element, node) => {
   return element as ReactPortal;
 });
-
-const initialState = {
-  wishlist: { items: mockData },
-  cart: { items: mockCartData },
-  ui: { showCart: false, showWishList: false, placeOrder: false },
-};
 
 describe('pages/index', () => {
   it('happy path - render products on page', () => {
@@ -44,7 +40,12 @@ describe('pages/index', () => {
   });
 
   it('Shows Wishlist when showWishlist is true', () => {
-    const uiState = { showCart: false, showWishList: true, placeOrder: false };
+    const uiState = {
+      showCart: false,
+      showWishList: true,
+      placeOrder: false,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
@@ -54,7 +55,12 @@ describe('pages/index', () => {
   });
 
   it('Disables scroll when showWishlist is true', () => {
-    const uiState = { showCart: false, showWishList: true, placeOrder: false };
+    const uiState = {
+      showCart: false,
+      showWishList: true,
+      placeOrder: false,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
@@ -70,7 +76,12 @@ describe('pages/index', () => {
   });
 
   it('Shows cart when showCart is true', () => {
-    const uiState = { showCart: true, showWishList: false, placeOrder: false };
+    const uiState = {
+      showCart: true,
+      showWishList: false,
+      placeOrder: false,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
@@ -80,7 +91,12 @@ describe('pages/index', () => {
   });
 
   it('Disables scroll when showCart is true', () => {
-    const uiState = { showCart: true, showWishList: false, placeOrder: false };
+    const uiState = {
+      showCart: true,
+      showWishList: false,
+      placeOrder: false,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
@@ -90,7 +106,12 @@ describe('pages/index', () => {
   });
 
   it('Disables scroll when placeOrder is true', () => {
-    const uiState = { showCart: false, showWishList: false, placeOrder: true };
+    const uiState = {
+      showCart: false,
+      showWishList: false,
+      placeOrder: true,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
@@ -108,7 +129,12 @@ describe('pages/index', () => {
   });
 
   it('Shows placeOrder when placeOrder is true', () => {
-    const uiState = { showCart: false, showWishList: false, placeOrder: true };
+    const uiState = {
+      showCart: false,
+      showWishList: false,
+      placeOrder: true,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },
@@ -120,7 +146,12 @@ describe('pages/index', () => {
   });
 
   it('Disables scroll when placeOrder is true', () => {
-    const uiState = { showCart: false, showWishList: false, placeOrder: true };
+    const uiState = {
+      showCart: false,
+      showWishList: false,
+      placeOrder: true,
+      toast: ToastType.empty,
+    };
 
     renderWithProviders(<Home products={mockData} />, {
       preloadedState: { ...initialState, ui: uiState },

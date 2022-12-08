@@ -1,4 +1,6 @@
 .product-list {
-  display: flex;
+  @include flex-center(row);
   flex-wrap: wrap;
+
+  width: 100%;
 }

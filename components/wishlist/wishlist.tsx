@@ -21,7 +21,7 @@ const Wishlist = () => {
       <Modal closeModal={closeModal}>
         <>
           <button onClick={closeModal}>X</button>
-          <h2>Wishlist</h2>
+          <h2 className="heading2">Wishlist</h2>
           <div className="modal__content">
             <ProductsList products={items} />
           </div>

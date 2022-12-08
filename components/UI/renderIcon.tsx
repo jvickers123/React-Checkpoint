@@ -1,5 +1,4 @@
 import Image from 'next/image';
-
 export const renderIcon = ({
   iconName,
   alt,
@@ -14,7 +13,7 @@ export const renderIcon = ({
   <Image
     src={`/assets/${iconName}.svg`}
     alt={alt}
-    className="logo"
+    className="icon"
     height={height}
     width={width}
   />

@@ -4,6 +4,7 @@ import { initStore } from '../store';
 import { AppStore, RootState } from '../store';
 import { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
+import { ToastType } from '../store/ui-slice';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: PreloadedState<RootState>;
@@ -18,7 +19,12 @@ export const renderWithProviders = (
       cart: {
         items: mockCartData,
       },
-      ui: { showCart: false, showWishList: false, placeOrder: false },
+      ui: {
+        showCart: false,
+        showWishList: false,
+        placeOrder: false,
+        toast: ToastType.empty,
+      },
     },
     store = initStore(preloadedState),
     ...renderOptions
