@@ -1,5 +1,6 @@
 .main {
   background-color: $grey;
+  min-height: calc(100vh - 20rem);
 }
 
 .main__noScroll {
@@ -13,5 +14,6 @@
   }
   .main {
     padding-top: 15rem;
+    min-height: 100vh;
   }
 }
