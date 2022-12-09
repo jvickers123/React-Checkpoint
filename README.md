@@ -1,6 +1,14 @@
 # React Checkpoint
 
-Store website built using Next.js, Redux, Sass, React Testing Library and https://fakestoreapi.com/ for the backend.
+Store website using https://fakestoreapi.com/ for the backend.
+
+## Technologies used:
+
+- Typescript
+- Next.js
+- Redux
+- Sass
+- React Testing Library
 
 ## Installation
 
