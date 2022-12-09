@@ -6,10 +6,12 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const toggleWishList = () => dispatch(uiActions.toggleWishList());
   const toggleCart = () => dispatch(uiActions.toggleCart());
+
   const wishlistIcon = renderIcon({
     iconName: 'heart-filled-white',
     alt: 'Wishlist',
   });
+
   const cartIcon = renderIcon({
     iconName: 'shoppingCart',
     alt: 'Shopping Cart',

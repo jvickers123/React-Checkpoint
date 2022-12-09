@@ -18,10 +18,12 @@ const PlaceOrder = () => {
     dispatch(cartActions.replaceCart({}));
   }, [dispatch]);
 
+  // close modal after 3 seconds
   useEffect(() => {
     const removeOrderTimer = setTimeout(closeModal, 1000 * 3);
     return () => clearTimeout(removeOrderTimer);
   }, [closeModal]);
+
   return (
     <Modal closeModal={closeModal}>
       <>

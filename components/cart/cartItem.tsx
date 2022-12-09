@@ -5,9 +5,8 @@ import { cartActions } from '../../store/cart';
 import { renderIcon } from '../UI/renderIcon';
 import { ToastType, uiActions } from '../../store/ui-slice';
 
-const CartProductItem = (props: { product: CartItem; inView: boolean }) => {
+const CartProductItem = (props: { product: CartItem }) => {
   const { image, price, title, id, quantity, total } = props.product;
-  const { inView } = props;
   const dispatch = useDispatch();
 
   const addToCart = () => {
@@ -20,10 +19,12 @@ const CartProductItem = (props: { product: CartItem; inView: boolean }) => {
   };
 
   const addIcon = renderIcon({ iconName: 'add-to-cart', alt: 'add to cart' });
+
   const removeIcon = renderIcon({
     iconName: 'cart-remove',
     alt: 'remove from cart',
   });
+
   return (
     <div className="product-tile">
       <div className="product-tile__button-container">
@@ -35,7 +36,7 @@ const CartProductItem = (props: { product: CartItem; inView: boolean }) => {
         </button>
       </div>
       <div className="product-tile__image">
-        <Image src={image} alt={title} fill sizes="25rem" priority={inView} />
+        <Image src={image} alt={title} fill sizes="25rem" />
       </div>
 
       <h2 className="heading2 product-tile__heading">{title}</h2>

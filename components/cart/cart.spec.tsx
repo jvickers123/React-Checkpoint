@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { ReactPortal } from 'react';
 import userEvent from '@testing-library/user-event';
 import { screen, waitFor } from '@testing-library/react';
+import { initialState } from '../../store';
 
 ReactDOM.createPortal = jest.fn((element, _node) => {
   return element as ReactPortal;
@@ -81,5 +82,16 @@ describe('Cart', () => {
         type: 'ui/placeOrder',
       });
     });
+  });
+
+  it('displays sorry no products text if no products in wishlist', () => {
+    const preloadedState = { ...initialState, cart: { items: [] } };
+    renderWithProviders(<Cart />, { preloadedState: preloadedState });
+
+    const item2 = screen.queryByRole('heading', { name: 'item2' });
+    expect(item2).not.toBeInTheDocument();
+
+    const noItemsText = screen.getByText('No items in your cart yet.');
+    expect(noItemsText).toBeInTheDocument();
   });
 });

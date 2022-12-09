@@ -7,6 +7,12 @@ import { useInWishlistOrCart } from '../../helpers/redux-helpers';
 import { renderIcon } from '../UI/renderIcon';
 import { ToastType, uiActions } from '../../store/ui-slice';
 
+/**
+ *
+ * @param product product item to be rendered
+ * @param inView If item is in view on first render, will add priority loading to image
+ * @returns Product Tile element
+ */
 const ProductTile = (props: { product: Product; inView: boolean }) => {
   const { image, price, title, id } = props.product;
   const { inView } = props;
@@ -28,6 +34,8 @@ const ProductTile = (props: { product: Product; inView: boolean }) => {
     dispatch(cartActions.addItem(props.product));
     dispatch(uiActions.changeToast(ToastType.addCart));
   };
+
+  // check if in wishlist and change icon accordingly
   const wishlistIcon = inWishlist
     ? renderIcon({ iconName: 'heart-filled', alt: 'remove from wishlist' })
     : renderIcon({ iconName: 'heart-empty', alt: 'add to wishlist' });
@@ -45,7 +53,14 @@ const ProductTile = (props: { product: Product; inView: boolean }) => {
         </button>
       </div>
       <div className="product-tile__image">
-        <Image src={image} alt={title} fill sizes="25rem" priority={inView} />
+        <Image
+          src={image}
+          alt={title}
+          fill
+          style={{ objectFit: 'contain' }}
+          sizes="250px"
+          priority={inView}
+        />
       </div>
 
       <h2 className="paragraph product-tile__title">{title}</h2>

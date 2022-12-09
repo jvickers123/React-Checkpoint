@@ -9,6 +9,7 @@ const Toast = () => {
   );
   const dispatch = useDispatch();
 
+  // remove toast after 3 seconds
   useEffect(() => {
     const clearToastTimer = setTimeout(
       () => dispatch(uiActions.changeToast(ToastType.empty)),
@@ -17,6 +18,7 @@ const Toast = () => {
     return () => clearTimeout(clearToastTimer);
   }, [toast, dispatch]);
 
+  // change class if toast message adds item or removes item
   let classForBackground = '';
   if (toast === ToastType.addWishlist || toast === ToastType.addCart) {
     classForBackground = 'success';

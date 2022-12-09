@@ -20,10 +20,24 @@ const Wishlist = () => {
     <>
       <Modal closeModal={closeModal}>
         <>
-          <button onClick={closeModal}>X</button>
+          <button className="button modal__btn" onClick={closeModal}>
+            Close
+          </button>
           <h2 className="heading2">Wishlist</h2>
-          <div className="modal__content">
-            <ProductsList products={items} />
+          <div
+            className={
+              items.length
+                ? 'modal__content'
+                : 'modal__content modal__content--no-overflow'
+            }
+          >
+            {items.length ? (
+              <ProductsList products={items} />
+            ) : (
+              <p className="paragraph">
+                Looks like you haven&apos;t added any items to your wishlist.
+              </p>
+            )}
           </div>
         </>
       </Modal>

@@ -14,14 +14,29 @@
   top: 5%;
   left: 5%;
   width: 90%;
-  background-color: white;
+  height: 90%;
+  background-color: $white;
   padding: 1rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
 
   &__content {
-    height: 60vh;
-    overflow: scroll;
+    height: 80vh;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    scrollbar-color: $white $grey;
+
+    &--no-overflow {
+      overflow-y: auto;
+      justify-content: center;
+    }
+  }
+
+  &__btn {
+    align-self: flex-end;
   }
 }

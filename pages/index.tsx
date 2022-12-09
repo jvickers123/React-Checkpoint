@@ -23,6 +23,7 @@ const Home = (props: { products: Product[] }) => {
     }
   >((state) => state.ui);
 
+  // disable scroll if any modals are showing
   const disableScroll = showCart || showWishList || placeOrder;
   return (
     <>

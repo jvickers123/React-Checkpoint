@@ -12,11 +12,14 @@ const Cart = () => {
   const { items } = useSelector<RootState, { items: CartItem[] }>(
     (state) => state.cart
   );
+
+  // calculate total price
   const total = items.reduce((acc, item) => acc + item.total, 0).toFixed(2);
 
   const closeModal = () => dispatch(uiActions.toggleCart());
   const clearCart = () => dispatch(cartActions.replaceCart({}));
 
+  // close cart and show place order screen
   const placeOrder = () => {
     dispatch(uiActions.toggleCart());
     dispatch(uiActions.placeOrder());
@@ -38,8 +41,18 @@ const Cart = () => {
             </button>
           </div>
           <h2 className="heading2">Cart</h2>
-          <div className="modal__content">
-            <ProductsList cart={items} />
+          <div
+            className={
+              items.length
+                ? 'modal__content'
+                : 'modal__content modal__content--no-overflow'
+            }
+          >
+            {items.length ? (
+              <ProductsList cart={items} />
+            ) : (
+              <p className="paragraph">No items in your cart yet.</p>
+            )}
           </div>
           <p className="paragraph">Total: £{total}</p>
           <button className="button cart__button" onClick={placeOrder}>

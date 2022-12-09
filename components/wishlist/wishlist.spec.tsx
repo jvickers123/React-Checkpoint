@@ -4,6 +4,7 @@ import Wishlist from './wishlist';
 import { renderWithProviders } from '../../helpers/test-utils';
 import { ReactPortal } from 'react';
 import ReactDOM from 'react-dom';
+import { initialState } from '../../store';
 
 const mockDispatch = jest.fn();
 jest.mock('react-redux', () => ({
@@ -28,9 +29,22 @@ describe('Wishlist', () => {
     expect(item2).toBeInTheDocument();
   });
 
+  it('displays sorry no products text if no products in wishlist', () => {
+    const preloadedState = { ...initialState, wishlist: { items: [] } };
+    renderWithProviders(<Wishlist />, { preloadedState: preloadedState });
+
+    const item2 = screen.queryByRole('heading', { name: 'item2' });
+    expect(item2).not.toBeInTheDocument();
+
+    const noItemsText = screen.getByText(
+      "Looks like you haven't added any items to your wishlist."
+    );
+    expect(noItemsText).toBeInTheDocument();
+  });
+
   it('close modal on click', async () => {
     renderWithProviders(<Wishlist />);
-    const closeButton = screen.getByRole('button', { name: 'X' });
+    const closeButton = screen.getByRole('button', { name: 'Close' });
     userEvent.click(closeButton);
 
     await waitFor(() => {

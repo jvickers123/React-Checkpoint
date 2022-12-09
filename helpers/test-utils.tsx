@@ -11,6 +11,12 @@ interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   store?: AppStore;
 }
 
+/**
+ *
+ * @param hookOrElement if a hook this will use renderHook if JSX element it will use render
+ * @param preloadedState state to render component or hook with, default is initial state.
+ * @returns render(element) with wrapper or renderHook with wrapper
+ */
 export const renderWithProviders = (
   hookOrElement: (() => any) | JSX.Element,
   {
@@ -26,30 +32,21 @@ export const renderWithProviders = (
         toast: ToastType.empty,
       },
     },
-    store = initStore(preloadedState),
-    ...renderOptions
   }: ExtendedRenderOptions = {}
 ) => {
+  const store = initStore(preloadedState);
   const Wrapper = ({ children }: { children: JSX.Element }) => (
     <Provider store={store}>{children}</Provider>
   );
 
-  // check if to renderhook or render()
+  // if type is function then element was a hook
   if (typeof hookOrElement === 'function') {
-    return {
-      store,
-      ...renderHook(hookOrElement as () => any, {
-        wrapper: Wrapper,
-        ...renderOptions,
-      }),
-    };
+    return renderHook(hookOrElement as () => any, {
+      wrapper: Wrapper,
+    });
   } else {
-    return {
-      store,
-      ...render(hookOrElement as JSX.Element, {
-        wrapper: Wrapper,
-        ...renderOptions,
-      }),
-    };
+    return render(hookOrElement as JSX.Element, {
+      wrapper: Wrapper,
+    });
   }
 };
