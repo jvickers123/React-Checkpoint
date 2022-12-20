@@ -8,7 +8,13 @@ import { Product } from './types';
  * @param wishlist true if looking in wishlist false if in cart: default true
  * @returns boolean
  */
-export const useInWishlistOrCart = (givenId: number, wishlist = true) => {
+export const useInWishlistOrCart = ({
+  givenId,
+  wishlist = true,
+}: {
+  givenId: number;
+  wishlist?: boolean;
+}) => {
   const list = wishlist ? 'wishlist' : 'cart';
   const { items } = useSelector<RootState, { items: Product[] }>(
     (state) => state[list]

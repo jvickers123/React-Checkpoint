@@ -16,7 +16,7 @@ import { ToastType, uiActions } from '../../store/ui-slice';
 const ProductTile = (props: { product: Product; inView: boolean }) => {
   const { image, price, title, id } = props.product;
   const { inView } = props;
-  const inWishlist = useInWishlistOrCart(id);
+  const inWishlist = useInWishlistOrCart({ givenId: id });
 
   const dispatch = useDispatch();
 

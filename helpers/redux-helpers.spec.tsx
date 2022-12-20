@@ -4,7 +4,7 @@ import { renderWithProviders } from './test-utils';
 
 const setUp = ({ id, wishlist }: { id: number; wishlist?: boolean }) => {
   const response = renderWithProviders(() =>
-    useInWishlistOrCart(id, wishlist)
+    useInWishlistOrCart({ givenId: id, wishlist })
   ) as RenderHookResult<any, unknown>;
   return {
     response,
