@@ -31,21 +31,24 @@ jest.mock('next/image', () => ({
   },
 }));
 
+const setUp = ({ inView = false }) =>
+  render(<ProductTile product={mockData[0]} inView={inView} />);
+
 describe('ProductTile', () => {
   it('Displays product title', () => {
-    render(<ProductTile product={mockData[0]} inView={true} />);
+    setUp({ inView: true });
     const item1 = screen.getByText('item1');
     expect(item1).toBeInTheDocument();
   });
 
   it('image displayed with priority if inView is set to true', () => {
-    render(<ProductTile product={mockData[0]} inView={true} />);
+    setUp({ inView: true });
     const image = screen.getByRole('img', { name: 'item1' });
     expect(image.dataset.priority).toEqual('true');
   });
 
   it('image displayed withOUT priority if inView is set to false', () => {
-    render(<ProductTile product={mockData[0]} inView={false} />);
+    setUp({});
     const image = screen.getByRole('img', { name: 'item1' });
     expect(image.dataset.priority).toEqual('false');
   });
@@ -53,7 +56,7 @@ describe('ProductTile', () => {
   it('Adds to wishlist if item not on wishlist', async () => {
     jest.spyOn(UseInList, 'useInWishlistOrCart').mockReturnValueOnce(false);
 
-    render(<ProductTile product={mockData[0]} inView={false} />);
+    setUp({});
 
     const addToWishListButton = screen.getByRole('button', {
       name: 'add to wishlist',
@@ -78,7 +81,7 @@ describe('ProductTile', () => {
   it('Removes item from wishlist if already on wishlist', async () => {
     jest.spyOn(UseInList, 'useInWishlistOrCart').mockReturnValueOnce(true);
 
-    render(<ProductTile product={mockData[0]} inView={false} />);
+    setUp({});
 
     const addToWishListButton = screen.queryByRole('button', {
       name: 'add to wishlist',
@@ -103,7 +106,7 @@ describe('ProductTile', () => {
   it('Adds to cart if item not on cart', async () => {
     jest.spyOn(UseInList, 'useInWishlistOrCart').mockReturnValue(false);
 
-    render(<ProductTile product={mockData[0]} inView={false} />);
+    setUp({});
 
     const addToCartButton = screen.getByRole('button', { name: 'add to cart' });
 
@@ -122,7 +125,7 @@ describe('ProductTile', () => {
   it('Add item to cart if already on cart', async () => {
     jest.spyOn(UseInList, 'useInWishlistOrCart').mockReturnValue(true);
 
-    render(<ProductTile product={mockData[0]} inView={false} />);
+    setUp({});
 
     const addToCartButton = screen.getByRole('button', { name: 'add to cart' });
 
