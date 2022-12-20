@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "types": ["node"]
+  "compileOptions": {
+    "jsx": "react-jsxdev"
   },
-  "include": ["**/*.spec.ts"]
+  "include": ["**/*.cy.ts"]
 }

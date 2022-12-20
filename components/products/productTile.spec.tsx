@@ -3,6 +3,7 @@ import { mockData } from '../../mock/mockData';
 import { render, screen, waitFor } from '@testing-library/react';
 import UserEvent from '@testing-library/user-event';
 import * as UseInList from '../../helpers/redux-helpers';
+import React from 'react';
 
 jest.mock('../../helpers/redux-helpers');
 
