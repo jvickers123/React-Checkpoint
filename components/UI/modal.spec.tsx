@@ -7,14 +7,15 @@ import userEvent from '@testing-library/user-event';
 ReactDOM.createPortal = jest.fn((element, _node) => {
   return element as ReactPortal;
 });
-
+const setUp = ({ closeFunction }: { closeFunction: () => void }) =>
+  render(
+    <Modal closeModal={closeFunction}>
+      <div>Test</div>
+    </Modal>
+  );
 describe('Modal', () => {
   it('shows Children element in modal', () => {
-    render(
-      <Modal closeModal={jest.fn()}>
-        <div>Test</div>
-      </Modal>
-    );
+    setUp({ closeFunction: jest.fn() });
 
     const testChild = screen.getByText('Test');
 
@@ -22,18 +23,14 @@ describe('Modal', () => {
   });
 
   it('Calls closeModal when user clicks backdrop', async () => {
-    const closeModal = jest.fn();
-    render(
-      <Modal closeModal={closeModal}>
-        <div>Test</div>
-      </Modal>
-    );
+    const mockCloseModal = jest.fn();
+    setUp({ closeFunction: mockCloseModal });
     const backdrop = screen.getByTestId('backdrop');
 
     userEvent.click(backdrop);
 
     await waitFor(() => {
-      expect(closeModal).toHaveBeenCalledTimes(1);
+      expect(mockCloseModal).toHaveBeenCalledTimes(1);
     });
   });
 });
