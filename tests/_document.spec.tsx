@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import DocumentPage from '../pages/_document';
 
 describe('DocumentPage', () => {

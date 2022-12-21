@@ -1,11 +1,10 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "noEmit": true,
     // be explicit about types included
     // to avoid clashing with Jest types
-    "types": ["cypress"]
+    "types": ["cypress", "node"]
   },
-  "typeAcquisition": { "include": ["cypress"] },
-  "include": ["../node_modules/cypress", "./**/*.ts"]
+  "include": ["./**/*.ts", "../postinstall.js"],
+  "exclude": ["node_modules", "**/*.spec.tsx", "**/*.spec.ts"]
 }

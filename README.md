@@ -16,6 +16,8 @@ Store website using https://fakestoreapi.com/ for the backend.
 
 - run `yarn` to install dependencies.
 
+- (if you are still getting errors in spec files close and reopen your code editor)
+
 - run `yarn build`
 
 - run `yarn start`
@@ -24,4 +26,10 @@ Store website using https://fakestoreapi.com/ for the backend.
 
 ## Test
 
+Unit Testing:
+
 - run `yarn test` or `yarn test --coverage`
+
+e2e Testing:
+
+- run `npx cypress open`
