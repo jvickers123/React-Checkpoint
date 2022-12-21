@@ -5,7 +5,7 @@ export const mockData: Product[] = [
     category: 'clothes',
     description: 'big jacket',
     id: 1,
-    image: 'https://imageConfigDefault.url',
+    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
     price: 10,
     rating: {
       rate: 1,
@@ -17,7 +17,8 @@ export const mockData: Product[] = [
     category: 'clothes',
     description: 'small jacket',
     id: 2,
-    image: 'https://SecondimageConfigDefault.url',
+    image:
+      'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
     price: 11,
     rating: {
       rate: 2,
@@ -32,7 +33,7 @@ export const mockCartData: CartItem[] = [
     category: 'clothes',
     description: 'big jacket',
     id: 1,
-    image: 'https://imageConfigDefault.url',
+    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
     price: 10,
     rating: {
       rate: 1,
@@ -46,7 +47,8 @@ export const mockCartData: CartItem[] = [
     category: 'clothes',
     description: 'small jacket',
     id: 2,
-    image: 'https://SecondimageConfigDefault.url',
+    image:
+      'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
     price: 11,
     rating: {
       rate: 2,
