@@ -32,4 +32,4 @@ Unit Testing:
 
 e2e Testing:
 
-- run `npx cypress open`
+- run `yarn cypress:e2e`
