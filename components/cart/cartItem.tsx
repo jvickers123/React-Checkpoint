@@ -42,7 +42,7 @@ const CartProductItem = (props: { product: CartItem }) => {
       <h2 className="heading2 product-tile__heading">{title}</h2>
 
       <p className="paragraph product-tile__price">
-        £{price} x {quantity}
+        £{price.toFixed(2)} x {quantity}
       </p>
       <p className="paragraph product-tile__total">£{total.toFixed(2)}</p>
     </div>
