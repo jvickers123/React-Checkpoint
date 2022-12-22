@@ -40,4 +40,3 @@ export const initStore = (preloadedState?: PreloadedState<RootState>) => {
 };
 
 export type AppStore = ReturnType<typeof initStore>;
-export default initStore;
