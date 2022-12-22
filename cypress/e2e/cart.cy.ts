@@ -3,7 +3,7 @@ import { onCartPage } from '../support/page_objects/cartPage';
 import { onHomePage } from '../support/page_objects/homePage';
 import { navigateTo } from '../support/page_objects/navigationPage';
 
-export const mockCart = [
+const mockCart = [
   { item: 'item1', price: 10, quantity: 1 },
   { item: 'item2', price: 11, quantity: 1 },
 ];

@@ -3,7 +3,11 @@ import { onCartPage } from '../support/page_objects/cartPage';
 import { onHomePage } from '../support/page_objects/homePage';
 import { navigateTo } from '../support/page_objects/navigationPage';
 import { onWishList } from '../support/page_objects/wishlistPage';
-import { mockCart } from './cart.cy';
+
+const mockCart = [
+  { item: 'item1', price: 10, quantity: 1 },
+  { item: 'item2', price: 11, quantity: 1 },
+];
 
 describe('wishlist actions', () => {
   beforeEach(() => {
